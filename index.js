@@ -1,10 +1,12 @@
 $(function(){
 
-  $('body').masonry({
+var $body = $('body').imagesLoaded( function() {
+  $body.packery({
     // options
     itemSelector: '.outter'
     // columnWidth: 200
   });
+})
 
 //~+~+~+~+~+~+~+~+~+~+~+~+LSMMA STATIC / LIVE TOGGLE +~+~+~~+~+~+~+~+~+~+~+~+~+//
 var lsmma = true;
@@ -43,7 +45,7 @@ $('.lsmmaToggle').click(function(){
     // console.log(forecast)
     forecastText = forecast[10].innerText
     // console.log(forecastText)
-    re = /TWO\ HARBORS[\s\S]*?\$\$/; //regular expression to get duluth/two harbors only.
+    re = /TWO\ HARBORS[\s\S]*?\$\$/g; //regular expression to get duluth/two harbors only. ///THIS IS GETTING CUT OFF ON THE TOP, CHECK IT OUT!
     choppedForecast = forecastText.match(re)[0]
     // console.log(choppedForecast)
     finalForecast = choppedForecast.replace(/(\n\.)/g , "</p><p>")
@@ -71,6 +73,30 @@ $('.lsmmaToggle').click(function(){
     console.error( "could not get nearshore forecast" );
   })
 
+  // +~+~+~+~+~+~+~+~+~+~+~+~+ Wind & Wave Select ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
+  var values = ['01','02','03','04','05','06','07','08','09',10,11,12,15,18,21,24,27,30,33,36,39,42,45,48,51,54,57,60,63,66,69,72,75,78,81,84,87,90,93,96,99,102,105,108,111,114,117,120]
+  for (var i = 0; i < values.length; i++) {
+
+    if(i == 16){
+      $('.windmap select').append( '<option selected value="'+ values[i]+'">+'+ values[i] +'</option>' )
+      $('.wavemap select').append( '<option selected value="'+ values[i]+'">+'+ values[i] +'</option>' )
+    }else{
+      $('.windmap select').append( '<option value="'+ values[i]+'">+'+ values[i] +'</option>' )
+      $('.wavemap select').append( '<option value="'+ values[i]+'">+'+ values[i] +'</option>' )
+    }
+  }
+
+  $('.windmap select').change(function(d){
+    var newmap = $('.windmap select').val()
+    // console.log(newmap)
+    $('.windmap img').attr('src', 'https://www.glerl.noaa.gov//res/glcfs/fcast/swn+'+ newmap +'.gif')
+  })
+
+  $('.wavemap select').change(function(d){
+    var newmap = $('.wavemap select').val()
+    // console.log(newmap)
+    $('.wavemap img').attr('src', 'https://www.glerl.noaa.gov//res/glcfs/fcast/swv+'+ newmap +'.gif')
+  })
 
 
 
