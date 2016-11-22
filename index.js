@@ -35,18 +35,13 @@ $('.lsmmaToggle').click(function(){
     $('.count').text(refreshRate)
   },1000 )
 
+
   // +~+~+~+~+~+~+~+~+~+~+~+~+ Nearshore PARSE ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
   const nearshore_url = 'http://forecast.weather.gov/product.php?site=DLH&issuedby=DLH&product=NSH&format=TXT&version=1&glossary=0'
 
   $.get(nearshore_url, function(data){
-    page = $.parseHTML(data);
-    // console.log(data)
-    forecast = $.parseHTML(page[40].children[2].firstElementChild.innerHTML)
-    // console.log(forecast)
-    forecastText = forecast[10].innerText
-    // console.log(forecastText)
     re = /TWO\ HARBORS[\s\S]*?\$\$/g; //regular expression to get duluth/two harbors only. ///THIS IS GETTING CUT OFF ON THE TOP, CHECK IT OUT!
-    choppedForecast = forecastText.match(re)[0]
+    choppedForecast = data.match(re)[0]
     // console.log(choppedForecast)
     finalForecast = choppedForecast.replace(/(\n\.)/g , "</p><p>")
     // console.log(finalForecast)
@@ -59,25 +54,20 @@ $('.lsmmaToggle').click(function(){
   const offshore_url = 'http://forecast.weather.gov/product.php?site=DLH&issuedby=LS&product=GLF&format=txt&version=1&glossary=0'
 
   $.get(offshore_url, function(data){
-    page = $.parseHTML(data);
-    // console.log(page)
-    forecast = $.parseHTML(page[40].innerHTML)
-    forecastText = forecast[4].innerHTML
-    // console.log(forecastText)
     re = /LAKE\ SUPERIOR\ WEST\ OF\ A\ LINE[\s\S]*?\$\$/; //regular expression to get duluth/two harbors only.
-    choppedForecast = forecastText.match(re)[0]
+    choppedForecast = data.match(re)[0]
     finalForecast = choppedForecast.replace(/(\n\.)/g , "</p><p>")
     $('.offshore').append( finalForecast )
 
   }).fail(function() {
-    console.error( "could not get nearshore forecast" );
+    console.error( "could not get offshore forecast" );
   })
 
   // +~+~+~+~+~+~+~+~+~+~+~+~+ Wind & Wave Select ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
   var values = ['01','02','03','04','05','06','07','08','09',10,11,12,15,18,21,24,27,30,33,36,39,42,45,48,51,54,57,60,63,66,69,72,75,78,81,84,87,90,93,96,99,102,105,108,111,114,117,120]
   for (var i = 0; i < values.length; i++) {
 
-    if(i == 16){
+    if(i == 15){
       $('.windmap select').append( '<option selected value="'+ values[i]+'">+'+ values[i] +'</option>' )
       $('.wavemap select').append( '<option selected value="'+ values[i]+'">+'+ values[i] +'</option>' )
     }else{
@@ -98,9 +88,26 @@ $('.lsmmaToggle').click(function(){
     $('.wavemap img').attr('src', 'https://www.glerl.noaa.gov//res/glcfs/fcast/swv+'+ newmap +'.gif')
   })
 
+// +~+~+~+~+~+~+~+~+~+~+~+~+ ROAM4 Table ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
+const ROAM4_url = 'http://www.ndbc.noaa.gov/station_page.php?station=roam4'
+
+  //leverage the cross origin ajax plugin
+  $.ajax({
+    crossOrigin: true,
+    url:ROAM4_url,
+    success: function(data) {
+      data = data.replace(/<td>-<\/td>/g, "")
+      page = $.parseHTML(data);
+      console.log(page)
+      table = page[47].firstElementChild.firstElementChild.firstElementChild.cells[2].children[7].children[1]
+      console.log(table)
+      // table = table.replace(/<td>-<\/td>/g, "")
+      $('.windtable').html(table)
+      $('.windtable tr:first').remove()
 
 
-
+    }
+  });
 
 
 })
