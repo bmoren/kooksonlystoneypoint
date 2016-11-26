@@ -44,7 +44,7 @@ $(function() {
   const nearshore_url = 'http://forecast.weather.gov/product.php?site=DLH&issuedby=DLH&product=NSH&format=TXT&version=1&glossary=0'
 
   $.get(nearshore_url, function(data) {
-      re = /TWO\ HARBORS[\s\S]*?\$\$/g; //regular expression to get duluth/two harbors only. ///THIS IS GETTING CUT OFF ON THE TOP, CHECK IT OUT!
+      re = /TWO\ HARBORS\ TO[\s\S]*?\$\$/g; //regular expression to get duluth/two harbors only. ///THIS IS GETTING CUT OFF ON THE TOP, CHECK IT OUT!
       choppedForecast = data.match(re)[0]
           // console.log(choppedForecast)
       finalForecast = choppedForecast.replace(/(\n\.)/g, "</p><p>")
@@ -64,6 +64,8 @@ $(function() {
       finalForecast = choppedForecast.replace(/(\n\.)/g, "</p><p>")
       $('.offshore').append(finalForecast)
       $body.packery('layout');
+      highlight();
+
   }).fail(function() {
       console.error("could not get offshore forecast");
   })
@@ -92,6 +94,17 @@ $(function() {
           // console.log(newmap)
       $('.wavemap img').attr('src', 'https://www.glerl.noaa.gov//res/glcfs/fcast/swv+' + newmap + '.gif')
   })
+  // +~+~+~+~+~+~+~+~+~+~+~+~+ Water Temp ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
+
+  $.get('temp.php', function(data) {
+      data = $.parseHTML(data)
+      // console.log(data)
+      $('.waterTemp').append('<br>' + data[12].children[1].children[1].children["0"].children[1].childNodes[1].data.replace(/:/," "))
+      // $('.waterTemp').append('<br>' + Math.round(data.data[6][1] * 10) / 10 + '&deg;')
+      $body.packery('layout');
+  }).fail(function() {
+      console.error("could not get water temp");
+  })
 
   // +~+~+~+~+~+~+~+~+~+~+~+~+ ROAM4 Table ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
 
@@ -105,16 +118,39 @@ $(function() {
       var json = json.data
 
       var content = "";
-      var count = 0
+      var count = 0 //for getting the most recent 24 hours...
+      var localDate;
       json.forEach(function(row, i) {
           if (row[4] == '00') { //only on the hour
               count++
-              if (count < 24) {
+              if (count < 24) { //only get the 24 most recent results
                   content += "<tr>";
+
+                  var d = new Date();
+                  d.setUTCHours(row[3], row[4], '00')
+                  d.setUTCDate(row[2])
+                  d.setUTCMonth(row[1]-1)
+                  d.setUTCFullYear(row[0])
+                   localDate = new Date(d.toLocaleString())
+                  // console.log(d.toLocaleString())
+
                   row.forEach(function(cell, i) {
-                      if (i != 0 && i != 4 && i != 9) { //dont get the year, min, or gust time
-                          if (i == 6 || i == 8) { //wind and gust speed need to be converted from meters/sec to KTS
-                              content += "<td>" + Math.round(cell * 1.94384) + "</td>"; //convert to KTS
+                      if ( i != 2 && i != 3 &&  i != 4 && i != 9) { //dont get the year, min, or gust time
+                        if( i == 0){
+                          content += "<td>" + (localDate.getMonth()+1) + '/' + localDate.getDate() + "</td>"; //convert to KTS
+                        }else if(i == 1){
+                          content += "<td>" + formatHours(localDate.getHours()) + "</td>";
+                        }else if (i == 5 || i == 7){ // wind and gust speed
+
+                          if(DegreesToCardinal(cell) == 'N' ||DegreesToCardinal(cell) == 'NNE' || DegreesToCardinal(cell) == 'ENE' || DegreesToCardinal(cell) == 'NE' || DegreesToCardinal(cell) == 'E' ){
+                            content += "<td><span class='marked-text'>" + DegreesToCardinal(cell) + ' <span class="small">(' + cell + '&deg;)</span></span>'+ "</td>"; //convert to KTS
+
+                          }else{
+                            content += "<td>" + DegreesToCardinal(cell) + ' <span class="small">(' + cell + '&deg;)</span>'+ "</td>"; //convert to KTS
+                          }
+
+                        }else if (i == 6 || i == 8) { //wind and gust speed need to be converted from meters/sec to KTS
+                              content += "<td>" + Math.round((cell * 1.94384)*10)/10 + "</td>"; //convert to KTS and one decimal place
                           } else {
                               content += "<td>" + cell + "</td>";
                           }
@@ -125,10 +161,178 @@ $(function() {
           }
       });
       $('.roam4 table').append(content)
+      $('.roam4 .spinner').remove();
+
+
 
       $body.packery('layout');
   }).fail(function() {
       console.error("could not get ROAM4");
   })
+
+
+// +~+~+~+~+~+~+~+~+~+~+~+~+ DULM5 Table ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
+
+$.get('dulm5.php', function(data) {
+    // data = data.replace(/\n/g,"\r\n")
+    data = data.replace(/(\w)([ ]{1,})(\w)/g, "$1,$3") // replace spaces with commas
+        // console.log(data)
+        //{delimiter:" "}
+    var json = Papa.parse(data)
+        // console.log(json)
+    var json = json.data
+
+    var content = "";
+    var count = 0 //for getting the most recent 24 hours...
+    var localDate;
+    json.forEach(function(row, i) {
+        if (row[4] == '00') { //only on the hour
+            count++
+            if (count < 24) { //only get the 24 most recent results
+                content += "<tr>";
+
+                var d = new Date();
+                d.setUTCHours(row[3], row[4], '00')
+                d.setUTCDate(row[2])
+                d.setUTCMonth(row[1]-1)
+                d.setUTCFullYear(row[0])
+                 localDate = new Date(d.toLocaleString())
+                // console.log(d.toLocaleString())
+
+                row.forEach(function(cell, i) {
+                    if ( i != 2 && i != 3 &&  i != 4 && i < 8) { //dont get the year, min, or gust time
+                      if( i == 0){
+                        content += "<td>" + (localDate.getMonth()+1) + '/' + localDate.getDate() + "</td>"; //convert to KTS
+                      }else if(i == 1){
+                        content += "<td>" + formatHours(localDate.getHours()) + "</td>";
+                      }else if (i == 5){ // wind and gust speed
+
+                        if(DegreesToCardinal(cell) == 'N' ||DegreesToCardinal(cell) == 'NNE' || DegreesToCardinal(cell) == 'ENE' || DegreesToCardinal(cell) == 'NE' || DegreesToCardinal(cell) == 'E' ){
+                          content += "<td><span class='marked-text'>" + DegreesToCardinal(cell) + ' <span class="small">(' + cell + '&deg;)</span></span>'+ "</td>"; //convert to KTS
+
+                        }else{
+                          content += "<td>" + DegreesToCardinal(cell) + ' <span class="small">(' + cell + '&deg;)</span>'+ "</td>"; //convert to KTS
+                        }
+
+                      }else if (i == 6 || i == 7 ) { //wind and gust speed need to be converted from meters/sec to KTS
+                            content += "<td>" + Math.round((cell * 1.94384)*10)/10 + "</td>"; //convert to KTS and one decimal place
+                        } else {
+                            content += "<td>" + cell + "</td>";
+                        }
+                    }
+                });
+                content += "</tr>";
+            }
+        }
+    });
+    $('.dulm5 table').append(content)
+    $('.dulm5 .spinner').remove();
+
+
+
+    $body.packery('layout');
+}).fail(function() {
+    console.error("could not get DULM5");
+})
+
+// +~+~+~+~+~+~+~+~+~+~+~+~+ SLVM5 Table ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
+
+$.get('slvm5.php', function(data) {
+    // data = data.replace(/\n/g,"\r\n")
+    data = data.replace(/(\w)([ ]{1,})(\w)/g, "$1,$3") // replace spaces with commas
+        // console.log(data)
+        //{delimiter:" "}
+    var json = Papa.parse(data)
+        // console.log(json)
+    var json = json.data
+
+    var content = "";
+    var count = 0 //for getting the most recent 24 hours...
+    var localDate;
+    json.forEach(function(row, i) {
+        if (row[4] == '00') { //only on the hour
+            count++
+            if (count < 24) { //only get the 24 most recent results
+                content += "<tr>";
+
+                var d = new Date();
+                d.setUTCHours(row[3], row[4], '00')
+                d.setUTCDate(row[2])
+                d.setUTCMonth(row[1]-1)
+                d.setUTCFullYear(row[0])
+                 localDate = new Date(d.toLocaleString())
+                // console.log(d.toLocaleString())
+
+                row.forEach(function(cell, i) {
+                    if ( i != 2 && i != 3 &&  i != 4 && i < 8) { //dont get the year, min, or gust time
+                      if( i == 0){
+                        content += "<td>" + (localDate.getMonth()+1) + '/' + localDate.getDate() + "</td>"; //convert to KTS
+                      }else if(i == 1){
+                        content += "<td>" + formatHours(localDate.getHours()) + "</td>";
+                      }else if (i == 5){ // wind and gust speed
+
+                        if(DegreesToCardinal(cell) == 'N' ||DegreesToCardinal(cell) == 'NNE' || DegreesToCardinal(cell) == 'ENE' || DegreesToCardinal(cell) == 'NE' || DegreesToCardinal(cell) == 'E' ){
+                          content += "<td><span class='marked-text'>" + DegreesToCardinal(cell) + ' <span class="small">(' + cell + '&deg;)</span></span>'+ "</td>"; //convert to KTS
+
+                        }else{
+                          content += "<td>" + DegreesToCardinal(cell) + ' <span class="small">(' + cell + '&deg;)</span>'+ "</td>"; //convert to KTS
+                        }
+
+                      }else if (i == 6 || i == 7 ) { //wind and gust speed need to be converted from meters/sec to KTS
+                            content += "<td>" + Math.round((cell * 1.94384)*10)/10 + "</td>"; //convert to KTS and one decimal place
+                        } else {
+                            content += "<td>" + cell + "</td>";
+                        }
+                    }
+                });
+                content += "</tr>";
+            }
+        }
+    });
+    $('.slvm5 table').append(content)
+    $('.slvm5 .spinner').remove();
+
+
+
+    $body.packery('layout');
+}).fail(function() {
+    console.error("could not get SLVM5");
+})
+
+
+
+// +~+~+~+~+~+~+~+~+~+~+~+~+ UTILITIES ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
+function DegreesToCardinal(degrees){
+    degrees *= 10;
+
+    caridnals = [ "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N" ];
+    return caridnals[Math.round((degrees % 3600) / 225)];
+}
+
+
+function formatHours(hours){
+suffix = (hours >= 12)? 'pm' : 'am';   //it is pm if hours from 12 onwards
+hours = (hours > 12)? hours -12 : hours; //only -12 from hours if it is greater than 12 (if not back at mid night)
+hours = (hours == '00')? 12 : hours; //if 00 then it is 12 am
+return hours + ' ' + suffix;
+}
+
+
+function highlight(){
+  $('body').mark('NORTH', {useSmartBehavior: true,
+    beforeMark: function (match) {
+        // exclude SOUTHEAST
+        return match !== "NORTHWEST"
+    }
+  })
+  $('body').mark('NORTHEAST')
+  $('body').mark('EAST', {useSmartBehavior: true,
+    beforeMark: function (match) {
+        // exclude SOUTHEAST
+        return match !== "SOUTHEAST"
+    }
+  })
+
+}
 
 })

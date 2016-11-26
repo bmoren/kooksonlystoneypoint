@@ -52,13 +52,46 @@
     </div>
 
     <div class="roam4 outter">
-      <h4>ROAM4 <a class='arrow' href="http://www.ndbc.noaa.gov/station_page.php?station=roam4">→</a></h4>
-
+      <h4>Station ROAM4 - Rock of Ages, MI <a class='arrow' href="http://www.ndbc.noaa.gov/station_page.php?station=roam4">→</a></h4>
       <table>
         <tr>
-          <td>Month</td><td>Day</td><td> Hour</td><td> Wind Dir</td><td> Wind Spd (kts)</td><td> Gust Dir</td><td> Gust Spd (kts)</td>
+          <td>Date (local)</td><td> Hour (local)</td><td> Wind Dir</td><td> Wind (kts)</td><td> Gust Dir</td><td> Gust (kts)</td>
         </tr>
       </table>
+      <img class='spinner' src="spinner.gif" alt="" />
+    </div>
+
+    <div class="slvm5 outter">
+      <h4>Station SLVM5 - Silver Bay, MN  <a class='arrow' href="http://www.ndbc.noaa.gov/station_page.php?station=slvm5">→</a></h4>
+      <table>
+        <tr>
+          <td>Date (local)</td><td> Hour (local)</td><td> Wind Dir</td><td> Wind (kts)</td><td> Gust (kts)</td>
+        </tr>
+      </table>
+      <img class='spinner' src="spinner.gif" alt="" />
+
+    </div>
+
+    <div class="dulm5 outter">
+      <h4>Station DULM5 - 9099064 - Duluth, MN  <a class='arrow' href="http://www.ndbc.noaa.gov/station_page.php?station=dulm5">→</a></h4>
+      <table>
+        <tr>
+          <td>Date (local)</td><td> Hour (local)</td><td> Wind Dir</td><td> Wind (kts)</td><td> Gust (kts)</td>
+        </tr>
+      </table>
+      <img class='spinner' src="spinner.gif" alt="" />
+
+    </div>
+
+
+    <div class="waterTemp outter">
+      <h4>Avg. Water Temp (f) <a class='arrow' href="http://www.coastwatch.msu.edu/superior/s1.html">→</a></h4>
+    </div>
+
+    <div class="localForecast outter double">
+      <iframe id="forecast_embed" type="text/html" frameborder="0" height="245px" width="100%" src="https://forecast.io/embed/#lat=46.83759&lon=-92.0085305&name=Duluth (Lester River)"> </iframe>
+
+      <!-- 46.83759,-92.0085305 -->
     </div>
 
 
@@ -77,6 +110,7 @@
   </body>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script src="papaparse.min.js" charset="utf-8"></script>
+  <script src="jquitelight.min.js" charset="utf-8"></script>
   <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/packery/2.1.1/packery.pkgd.min.js"></script>
   <script src="index.js" charset="utf-8"></script>
