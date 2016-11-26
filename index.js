@@ -70,16 +70,24 @@ $(function() {
       console.error("could not get offshore forecast");
   })
 
-  // +~+~+~+~+~+~+~+~+~+~+~+~+ Wind & Wave Select ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
+  // +~+~+~+~+~+~+~+~+~+~+~+~+ Wind & Wave & Surface Analysis Select ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
   var values = ['01', '02', '03', '04', '05', '06', '07', '08', '09', 10, 11, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51, 54, 57, 60, 63, 66, 69, 72, 75, 78, 81, 84, 87, 90, 93, 96, 99, 102, 105, 108, 111, 114, 117, 120]
   for (var i = 0; i < values.length; i++) {
+      if( i == 11){
+        $('.surface select').append('<option selected value="' + values[i] + '">+' + values[i] + '</option>')
+
+      }else if(i < 14){
+        $('.surface select').append('<option value="' + values[i] + '">+' + values[i] + '</option>')
+      }
 
       if (i == 15) {
           $('.windmap select').append('<option selected value="' + values[i] + '">+' + values[i] + '</option>')
           $('.wavemap select').append('<option selected value="' + values[i] + '">+' + values[i] + '</option>')
+
       } else {
           $('.windmap select').append('<option value="' + values[i] + '">+' + values[i] + '</option>')
           $('.wavemap select').append('<option value="' + values[i] + '">+' + values[i] + '</option>')
+
       }
   }
 
@@ -93,6 +101,12 @@ $(function() {
       var newmap = $('.wavemap select').val()
           // console.log(newmap)
       $('.wavemap img').attr('src', 'https://www.glerl.noaa.gov//res/glcfs/fcast/swv+' + newmap + '.gif')
+  })
+
+  $('.surface select').change(function(d) {
+      var newmap = $('.surface select').val()
+          // console.log(newmap)
+      $('.surface img').attr('src', 'http://weather.rap.ucar.edu/model/ruc'+ newmap + 'hr_sfc_wind.gif')
   })
   // +~+~+~+~+~+~+~+~+~+~+~+~+ Water Temp ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
 

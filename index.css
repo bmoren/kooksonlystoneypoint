@@ -58,7 +58,7 @@ iframe{width:100%;height:100%; display: block;}
   /*min-height: 400px;*/
   padding: 10px;
   /*border: 1px dotted black;*/
-  margin: 5px;
+  /*margin: 5px;*/
 	/*border-radius: 5px;*/
 
 }
@@ -69,19 +69,43 @@ iframe{width:100%;height:100%; display: block;}
 table{
 	width:100%;
 	border-collapse: collapse;
-	text-align: center;
+	/*text-align: center;*/
 }
 
-tr:nth-child(1) td{
+
+th{
 	background-color:black;
 	border: 1px solid white;
 	color:white;
+	text-align: left;
+	white-space: nowrap;
+
 }
+
+tr:nth-child(even) {
+    background-color: rgb(240,240,240);
+}
+
+tr td:nth-child(1), tr td:nth-child(2), tr td:nth-child(4) {
+   /*text-align: center;*/
+	 padding-left:5%;
+}
+.dulm5 tr td:nth-child(5), .slvm5 tr td:nth-child(5) {
+   /*text-align: center;*/
+	 padding-left:5%;
+}
+
+.roam4 tr td:nth-child(6) {
+   /*text-align: center;*/
+	 padding-left:5%;
+}
+
+
 
 td{
 	/*width:30px;*/
-	border: 1px solid black;
-
+	/*border: 1px solid black;*/
+	white-space: nowrap;
 }
 
 @media (max-width: 1000px)  {

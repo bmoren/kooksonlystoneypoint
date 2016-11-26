@@ -9,6 +9,29 @@
   </head>
   <body>
 
+    <div class="wavemap outter double">
+      <h4>GLCFS Wave Map <a class='arrow' href="https://www.glerl.noaa.gov//res/glcfs/glcfs.php?lake=s&ext=wv&type=F&hr=01">→</a> </h4>
+      <select name="waveSelect">
+      </select>
+      <img src="https://www.glerl.noaa.gov//res/glcfs/fcast/swv+24.gif" alt="" />
+    </div>
+
+    <div class="windmap outter double">
+      <h4>GLCFS Wind Map <a class='arrow' href="https://www.glerl.noaa.gov//res/glcfs/glcfs.php?lake=s&ext=wn&type=F&hr=00">→</a> </h4>
+      <select name="windSelect">
+      </select>
+      <img src="https://www.glerl.noaa.gov//res/glcfs/fcast/swn+24.gif" alt="" />
+    </div>
+
+    <div class="nearshore outter">
+      <h3>Nearshore Forecast <a class='arrow' href="http://forecast.weather.gov/product.php?site=DLH&product=NSH&issuedby=DLH">→</a> </h3>
+    </div>
+
+    <div class="offshore outter">
+      <h3>Offshore Forecast  <a class='arrow' href="http://forecast.weather.gov/product.php?site=DLH&product=GLF&issuedby=LS">→</a> </h3>
+    </div>
+
+
     <div class="lsmma outter webcam">
       <h4>LSMMA Canal Camera <a class='arrow' href="http://www.lsmma.com/webcam/webcam_st.html">→</a></h4> <a class='lsmmaToggle' href="#">Static Cam</a>  <br>
       <div class="lsmmaCam">
@@ -28,34 +51,16 @@
       </div>
     </div>
 
-
-    <div class="nearshore outter">
-      <h3>Nearshore Forecast <a class='arrow' href="http://forecast.weather.gov/product.php?site=DLH&product=NSH&issuedby=DLH">→</a> </h3>
-    </div>
-
-    <div class="offshore outter">
-      <h3>Offshore Forecast  <a class='arrow' href="http://forecast.weather.gov/product.php?site=DLH&product=GLF&issuedby=LS">→</a> </h3>
-    </div>
-
-    <div class="wavemap outter double">
-      <h4>GLCFS Wave Map <a class='arrow' href="https://www.glerl.noaa.gov//res/glcfs/glcfs.php?lake=s&ext=wv&type=F&hr=01">→</a> </h4>
-      <select name="waveSelect">
-      </select>
-      <img src="https://www.glerl.noaa.gov//res/glcfs/fcast/swv+24.gif" alt="" />
-    </div>
-
-    <div class="windmap outter double">
-      <h4>GLCFS Wind Map <a class='arrow' href="https://www.glerl.noaa.gov//res/glcfs/glcfs.php?lake=s&ext=wn&type=F&hr=00">→</a> </h4>
-      <select name="windSelect">
-      </select>
-      <img src="https://www.glerl.noaa.gov//res/glcfs/fcast/swn+24.gif" alt="" />
+    <div class="glensheen outter webcam">
+      <h4>INFOS Duluth WAITS-RC Camera</h4><a class='arrow' href="http://infosportwashington.cee.wisc.edu/webcam_rip.html">→</a> <br>
+      <img src="http://166.157.235.63/cgi-bin/faststream.jpg?fps=0.5" alt="" />
     </div>
 
     <div class="roam4 outter">
       <h4>Station ROAM4 - Rock of Ages, MI <a class='arrow' href="http://www.ndbc.noaa.gov/station_page.php?station=roam4">→</a></h4>
       <table>
         <tr>
-          <td>Date (local)</td><td> Hour (local)</td><td> Wind Dir</td><td> Wind (kts)</td><td> Gust Dir</td><td> Gust (kts)</td>
+          <th>Date (local)</th><th> Hour (local)</th><th> Wind Dir</th><th> Wind (kts)</th><th> Gust Dir</th><th> Gust (kts)</th>
         </tr>
       </table>
       <img class='spinner' src="spinner.gif" alt="" />
@@ -65,7 +70,7 @@
       <h4>Station SLVM5 - Silver Bay, MN  <a class='arrow' href="http://www.ndbc.noaa.gov/station_page.php?station=slvm5">→</a></h4>
       <table>
         <tr>
-          <td>Date (local)</td><td> Hour (local)</td><td> Wind Dir</td><td> Wind (kts)</td><td> Gust (kts)</td>
+          <th>Date (local)</th><th> Hour (local)</th><th> Wind Dir</th><th> Wind (kts)</th><th> Gust (kts)</th>
         </tr>
       </table>
       <img class='spinner' src="spinner.gif" alt="" />
@@ -76,11 +81,18 @@
       <h4>Station DULM5 - 9099064 - Duluth, MN  <a class='arrow' href="http://www.ndbc.noaa.gov/station_page.php?station=dulm5">→</a></h4>
       <table>
         <tr>
-          <td>Date (local)</td><td> Hour (local)</td><td> Wind Dir</td><td> Wind (kts)</td><td> Gust (kts)</td>
+          <th>Date (local)</th><th> Hour (local)</th><th> Wind Dir</th><th> Wind (kts)</th><th> Gust (kts)</th>
         </tr>
       </table>
       <img class='spinner' src="spinner.gif" alt="" />
 
+    </div>
+
+    <div class="surface outter double">
+      <h4>Surface Wind Analysis  <a class='arrow' href="http://www.ndbc.noaa.gov/station_page.php?station=dulm5">→</a></h4>
+      <select name="surfaceSelect">
+      </select>
+      <img src="http://weather.rap.ucar.edu/model/ruc12hr_sfc_wind.gif" alt="" />
     </div>
 
 
@@ -98,7 +110,7 @@
     <div class="original outter">
       <h4>Old/Original list of links <a class='arrow' href="http://forecast.benmoren.com">→</a></h4>
       <br>
-      <h4>Donate to keep this online!<a class='arrow' href="http://forecast.benmoren.com">→</a></h4>
+      <h4>Donate to keep this online!<a class='arrow' href="https://www.paypal.me/bmoren">→</a></h4>
       <br>
       <a href="https://github.com/bmoren/kooksonlystoneypoint/issues">Report issue / bug / suggestion</a>
       <br>
