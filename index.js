@@ -44,13 +44,14 @@ $(function() {
   const nearshore_url = 'http://forecast.weather.gov/product.php?site=DLH&issuedby=DLH&product=NSH&format=TXT&version=1&glossary=0'
 
   $.get(nearshore_url, function(data) {
-      re = /TWO\ HARBORS\ TO[\s\S]*?\$\$/g; //regular expression to get duluth/two harbors only. ///THIS IS GETTING CUT OFF ON THE TOP, CHECK IT OUT!
+      re = /Two\ Harbors\ to[\s\S]*?\$\$/g; //regular expression to get duluth/two harbors only. ///THIS IS GETTING CUT OFF ON THE TOP, CHECK IT OUT!
       choppedForecast = data.match(re)[0]
           // console.log(choppedForecast)
       finalForecast = choppedForecast.replace(/(\n\.)/g, "</p><p>")
           // console.log(finalForecast)
       $('.nearshore').append(finalForecast)
       $body.packery('layout');
+      highlight();
   }).fail(function() {
       console.error("could not get nearshore forecast");
   })
@@ -59,7 +60,8 @@ $(function() {
   const offshore_url = 'http://forecast.weather.gov/product.php?site=DLH&issuedby=LS&product=GLF&format=txt&version=1&glossary=0'
 
   $.get(offshore_url, function(data) {
-      re = /LAKE\ SUPERIOR\ WEST\ OF\ A\ LINE[\s\S]*?\$\$/; //regular expression to get duluth/two harbors only.
+      re = /Lake\ Superior\ west\ of\ a\ line\ from\ Saxon[\s\S]*?\$\$/
+      // re = /Lake\ Superior\ West\ Of\ A\ LINE[\s\S]*?\$\$/; //regular expression to get duluth/two harbors only.
       choppedForecast = data.match(re)[0]
       finalForecast = choppedForecast.replace(/(\n\.)/g, "</p><p>")
       $('.offshore').append(finalForecast)
@@ -111,10 +113,13 @@ $(function() {
   // +~+~+~+~+~+~+~+~+~+~+~+~+ Water Temp ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
 
   $.get('temp.php', function(data) {
-      data = $.parseHTML(data)
-      // console.log(data)
-      $('.waterTemp').append('<br>' + data[12].children[1].children[1].children["0"].children[1].childNodes[1].data.replace(/:/," "))
+      // data = $.parseHTML(data)
+      console.log(data)
+      re = /<!-- start surface -->[\s\S]*?<!-- end surface -->/
+      // $('.waterTemp').append('<br>' + data[12].children[1].children[1].children["0"].children[1].childNodes[1].data.replace(/:/," "))
       // $('.waterTemp').append('<br>' + Math.round(data.data[6][1] * 10) / 10 + '&deg;')
+      temp = data.match(re)[0]
+      $('.waterTemp').append(temp);
       $body.packery('layout');
   }).fail(function() {
       console.error("could not get water temp");
