@@ -114,7 +114,7 @@ $(function() {
 
   $.get('temp.php', function(data) {
       // data = $.parseHTML(data)
-      console.log(data)
+      // console.log(data)
       re = /<!-- start surface -->[\s\S]*?<!-- end surface -->/
       // $('.waterTemp').append('<br>' + data[12].children[1].children[1].children["0"].children[1].childNodes[1].data.replace(/:/," "))
       // $('.waterTemp').append('<br>' + Math.round(data.data[6][1] * 10) / 10 + '&deg;')
@@ -338,19 +338,11 @@ return hours + ' ' + suffix;
 
 
 function highlight(){
-  $('body').mark('NORTH', {useSmartBehavior: true,
-    beforeMark: function (match) {
-        // exclude SOUTHEAST
-        return match !== "NORTHWEST"
-    }
-  })
-  $('body').mark('NORTHEAST')
-  $('body').mark('EAST', {useSmartBehavior: true,
-    beforeMark: function (match) {
-        // exclude SOUTHEAST
-        return match !== "SOUTHEAST"
-    }
-  })
+
+  $("body").markRegExp(/\bnorth\b/gi);
+  $("body").markRegExp(/\bnortheast\b/gi);
+  $("body").markRegExp(/\beast\b/gi);
+
 
 }
 
