@@ -16,7 +16,7 @@ $(function() {
   var lsmma = true;
   $('.lsmmaToggle').click(function() {
       if (lsmma == true) {
-          $('.lsmmaCam').html('<img src="http://webpages.charter.net/dohara12/cameras/lsmmacam/lsmvc800.jpg">')
+          $('.lsmmaCam').html('<img src="http://duluthharborcam.us/cameras/canalcam/lsmvc800.jpg">')
           $('.lsmmaToggle').html('Live Cam')
           lsmma = false
       } else if (lsmma == false) {
