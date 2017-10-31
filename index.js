@@ -112,15 +112,26 @@ $(function() {
   })
   // +~+~+~+~+~+~+~+~+~+~+~+~+ Water Temp ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
 
-  $.get('temp.php', function(data) {
-      // data = $.parseHTML(data)
-      // console.log(data)
-      re = /<!-- start surface -->[\s\S]*?<!-- end surface -->/
-      // $('.waterTemp').append('<br>' + data[12].children[1].children[1].children["0"].children[1].childNodes[1].data.replace(/:/," "))
-      // $('.waterTemp').append('<br>' + Math.round(data.data[6][1] * 10) / 10 + '&deg;')
-      temp = data.match(re)[0]
-      $('.waterTemp').append(temp);
-      $body.packery('layout');
+  // $.get('temp.php', function(data) {
+  //     // data = $.parseHTML(data)
+  //     // console.log(data)
+  //     re = /<!-- start water -->[\s\S]*?<!-- end water -->/
+  //     // $('.waterTemp').append('<br>' + data[12].children[1].children[1].children["0"].children[1].childNodes[1].data.replace(/:/," "))
+  //     // $('.waterTemp').append('<br>' + Math.round(data.data[6][1] * 10) / 10 + '&deg;')
+  //     temp = data.match(re)[0]
+  //     // console.log(temp)
+  //     $('.waterTemp').append(temp);
+  //     $body.packery('layout');
+  // }).fail(function() {
+  //     console.error("could not get water temp");
+  // })
+
+  $.get('temp.php',function(data){
+    console.log(  )
+    var obj = $.parseJSON( data)
+    $('.waterTemp').append("<br>" + obj.data["0"].temp + "º");
+    $body.packery('layout');
+
   }).fail(function() {
       console.error("could not get water temp");
   })
