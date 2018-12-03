@@ -92,26 +92,13 @@ tr:nth-child(even) {
     background-color: rgb(240,240,240);
 }
 
-tr td:nth-child(1), tr td:nth-child(2), tr td:nth-child(4) {
-   /*text-align: center;*/
-	 padding-left:5%;
-}
-.dulm5 tr td:nth-child(5), .slvm5 tr td:nth-child(5) {
-   /*text-align: center;*/
-	 padding-left:5%;
-}
-
-.roam4 tr td:nth-child(6) {
-   /*text-align: center;*/
-	 padding-left:5%;
-}
-
 
 
 td{
 	/*width:30px;*/
-	/*border: 1px solid black;*/
+	border: 1px solid white;
 	white-space: nowrap;
+	text-align: center;
 }
 
 @media (max-width: 1000px)  {
