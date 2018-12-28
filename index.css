@@ -39,6 +39,9 @@ mark{
 	width:75px;
 	height:75px;
 }
+.refresh-arrow{
+	font-size:1.5em;
+}
 
 .arrow{
   text-decoration: none;
@@ -48,6 +51,11 @@ mark{
 
 .lsmmaCam, .glensheenCam {
   height:95%;
+}
+
+.ice{
+	overflow: hidden;
+	height: 250px;
 }
 
 .webcam{
@@ -103,6 +111,11 @@ td{
 
 @media (max-width: 900px)  {
 
+	/* This is an issue with the insecure loading of the ice stuff on mobile, should prob use diff ice thing after the gov shutdown. */
+	.ice{
+		display:none;
+	}
+
 	.webcam{
 	  height:auto;
 	}
@@ -124,6 +137,10 @@ td{
 
 	th{
 		white-space:normal;
+	}
+
+	.refresh-arrow{
+		font-size:1.15em;
 	}
 
 }

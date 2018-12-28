@@ -41,7 +41,7 @@ $(function() {
 
 
   // +~+~+~+~+~+~+~+~+~+~+~+~+ Nearshore PARSE ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
-  const nearshore_url = 'http://forecast.weather.gov/product.php?site=DLH&issuedby=DLH&product=NSH&format=TXT&version=1&glossary=0'
+  const nearshore_url = 'https://forecast.weather.gov/product.php?site=DLH&issuedby=DLH&product=NSH&format=TXT&version=1&glossary=0'
 
   $.get(nearshore_url, function(data) {
       re = /Two\ Harbors\ to[\s\S]*?\$\$/g; //regular expression to get duluth/two harbors only. ///THIS IS GETTING CUT OFF ON THE TOP, CHECK IT OUT!
@@ -57,7 +57,7 @@ $(function() {
   })
 
   // +~+~+~+~+~+~+~+~+~+~+~+~+ Offshore PARSE ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
-  const offshore_url = 'http://forecast.weather.gov/product.php?site=DLH&issuedby=LS&product=GLF&format=txt&version=1&glossary=0'
+  const offshore_url = 'https://forecast.weather.gov/product.php?site=DLH&issuedby=LS&product=GLF&format=txt&version=1&glossary=0'
 
   $.get(offshore_url, function(data) {
       re = /Lake\ Superior\ west\ of\ a\ line\ from\ Saxon[\s\S]*?\$\$/
@@ -331,72 +331,21 @@ $.get('disw3.php', function(data) {
 
 
 
+// +~+~+~+~+~+~+~+~+~+~+~+~+ ICE ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
 
-// +~+~+~+~+~+~+~+~+~+~+~+~+ SLVM5 Table ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
-//
-// $.get('slvm5.php', function(data) {
-//     // data = data.replace(/\n/g,"\r\n")
-//     data = data.replace(/(\w)([ ]{1,})(\w)/g, "$1,$3") // replace spaces with commas
-//         // console.log(data)
-//         //{delimiter:" "}
-//     var json = Papa.parse(data)
-//         // console.log(json)
-//     var json = json.data
-//
-//     var content = "";
-//     var count = 0 //for getting the most recent 24 hours...
-//     var localDate;
-//     json.forEach(function(row, i) {
-//         if (row[4] == '00') { //only on the hour
-//             count++
-//             if (count < 24) { //only get the 24 most recent results
-//                 content += "<tr>";
-//
-//                 var d = new Date();
-//                 d.setUTCHours(row[3], row[4], '00')
-//                 d.setUTCDate(row[2])
-//                 d.setUTCMonth(row[1]-1)
-//                 d.setUTCFullYear(row[0])
-//                  localDate = new Date(d.toLocaleString())
-//                 // console.log(d.toLocaleString())
-//
-//                 row.forEach(function(cell, i) {
-//                     if ( i != 2 && i != 3 &&  i != 4 && i < 8) { //dont get the year, min, or gust time
-//                       if( i == 0){
-//                         content += "<td>" + (localDate.getMonth()+1) + '/' + localDate.getDate() + "</td>"; //convert to KTS
-//                       }else if(i == 1){
-//                         content += "<td>" + formatHours(localDate.getHours()) + "</td>";
-//                       }else if (i == 5){ // wind and gust speed
-//
-//                         if(DegreesToCardinal(cell) == 'N' ||DegreesToCardinal(cell) == 'NNE' || DegreesToCardinal(cell) == 'ENE' || DegreesToCardinal(cell) == 'NE' || DegreesToCardinal(cell) == 'E' ){
-//                           content += "<td><span class='marked-text'>" + DegreesToCardinal(cell) + ' <span class="small">(' + cell + '&deg;)</span></span>'+ "</td>"; //convert to KTS
-//
-//                         }else{
-//                           content += "<td>" + DegreesToCardinal(cell) + ' <span class="small">(' + cell + '&deg;)</span>'+ "</td>"; //convert to KTS
-//                         }
-//
-//                       }else if (i == 6 || i == 7 ) { //wind and gust speed need to be converted from meters/sec to KTS
-//                             content += "<td>" + Math.round((cell * 1.94384)*10)/10 + "</td>"; //convert to KTS and one decimal place
-//                         } else {
-//                             content += "<td>" + cell + "</td>";
-//                         }
-//                     }
-//                 });
-//                 content += "</tr>";
-//             }
-//         }
-//     });
-//     $('.slvm5 table').append(content)
-//     $('.slvm5 .spinner').remove();
-//
-//
-//
-//     $body.packery('layout');
-// }).fail(function() {
-//     console.error("could not get SLVM5");
-// })
-//
-//
+// https://www.natice.noaa.gov/pub/special/great_lakes/2018/charts/composite_west/wl181227color.gif
+
+d = new Date();
+localDate = new Date(d.toLocaleString())
+
+let month = localDate.getMonth()+1
+let day = localDate.getDate()-1
+let year = localDate.getFullYear().toString().substr(-2)
+
+
+$('.ice img').attr('src', 'https://www.natice.noaa.gov/pub/special/great_lakes/2018/charts/composite_west/wl'+ year + month + day + 'color.gif')
+$('.ice a').attr('href', 'https://www.natice.noaa.gov/pub/special/great_lakes/2018/charts/composite_west/wl'+ year + month + day + 'color.gif')
+
 
 // +~+~+~+~+~+~+~+~+~+~+~+~+ UTILITIES ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
 function DegreesToCardinal(degrees){
