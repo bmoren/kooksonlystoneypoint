@@ -83,7 +83,7 @@ th{
 	background-color:black;
 	border: 1px solid white;
 	color:white;
-	text-align: left;
+	/* text-align: left; */
 	white-space: nowrap;
 
 }
@@ -101,18 +101,29 @@ td{
 	text-align: center;
 }
 
-@media (max-width: 1000px)  {
+@media (max-width: 900px)  {
 
-  .double{
-    width: 400px;
-  }
-
-}
-
-@media (max-width: 400px)  {
+	.webcam{
+	  height:auto;
+	}
 
   .double, .outter{
     width: 97%;
   }
+
+	.data-table{
+		padding-left:0;
+		padding-right:0;
+		width: 100%;
+
+	}
+
+	.data-table h4{
+		margin-left:10px;
+	}
+
+	th{
+		white-space:normal;
+	}
 
 }
