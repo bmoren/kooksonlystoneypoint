@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37160070-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-37160070-2');
+    </script>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>kooksonlystoneypoint</title>
     <link rel="stylesheet" href="index.css" media="screen" title="no title">
+    <link rel="icon" data-emoji="🌊" type="image/png">  </head>
 
   </head>
   <body>
@@ -34,7 +46,7 @@
 
 
     <div class="lsmma outter webcam">
-      <h4>LSMMA Canal Camera | <a class='lsmmaToggle' href="#">Static Cam</a> <a class='arrow' href="https://www.duluthharborcam.com/p/canal-park-cams.html">→</a></h4>
+      <h4>LSMMA Canal Camera | <a class='lsmmaToggle' href="#">Static Image</a> <a class='arrow' href="https://www.duluthharborcam.com/p/canal-park-cams.html">→</a></h4>
       <br>
       <div class="lsmmaCam">
         <iframe src="https://v.angelcam.com/iframe?v=vbolkpk8y8&amp;mute=1&amp;autoplay=1&amp;uuid=865e6d33-f2db-6d70-fccb-1ace015ef654" id="865e6d33-f2db-6d70-fccb-1ace015ef654" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
@@ -59,8 +71,13 @@
     </div> -->
 
     <div class="outter webcam">
-      <h4>INFOS Duluth WAITS-RC Camera</h4><a class='arrow' href="http://infosportwashington.cee.wisc.edu/webcam_rip.html">→</a> <br>
-      <img src="http://166.157.235.63/cgi-bin/faststream.jpg?fps=1" alt="" />
+      <h4>22nd St. Beach WAITS-RC </h4><a class='arrow' href="http://infosportwashington.cee.wisc.edu/webcam_rip.html">→</a> <br>
+      <img src="http://infosportwashington.cee.wisc.edu/wave_sensor/duluth.jpg" alt="" />
+    </div>
+
+    <div class="outter webcam">
+      <h4>Park Point Beach House WAITS-RC </h4><a class='arrow' href="http://infosportwashington.cee.wisc.edu/webcam_rip.html">→</a> <br>
+      <img src="http://infosportwashington.cee.wisc.edu/wave_sensor/beach_house.jpg" alt="" />
     </div>
 
     <div class="dulm5 outter data-table">
@@ -113,14 +130,14 @@
       <img src="http://weather.rap.ucar.edu/model/ruc12hr_sfc_wind.gif" alt="" />
     </div>
 
-    <div class=" ice outter">
+    <!-- <div class=" ice outter">
       <h4>Ice Coverage <a class='arrow' href="">→</a></h4>
       <img src="" alt="lake superior ice">
     </div>
 
     <div class="waterTemp outter">
       <h4>Avg. Water Temp (f) <a class='arrow' href="https://www.coastwatch.msu.edu/superior/s1.html">→</a></h4>
-    </div>
+    </div> -->
 
     <div class="localForecast outter double">
       <iframe id="forecast_embed" type="text/html" frameborder="0" height="245px" width="100%" src="https://forecast.io/embed/#lat=46.83759&lon=-92.0085305&name=Duluth (Lester River)"> </iframe>
@@ -137,6 +154,28 @@
 
 
     </div>
+
+
+    <script type="text/javascript">
+    // Emoji favicon code from: https://koddsson.com/posts/emoji-favicon/
+    const favicon = document.querySelector("link[rel=icon]");
+
+    if (favicon) {
+      const emoji = favicon.getAttribute("data-emoji");
+
+      if (emoji) {
+        const canvas = document.createElement("canvas");
+        canvas.height = 64;
+        canvas.width = 64;
+
+        const ctx = canvas.getContext("2d");
+        ctx.font = "64px serif";
+        ctx.fillText(emoji, 0, 64);
+
+        favicon.href = canvas.toDataURL();
+      }
+    }
+    </script>
 
   </body>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>

@@ -126,14 +126,14 @@ $(function() {
   //     console.error("could not get water temp");
   // })
 
-  $.get('temp.php',function(data){
-    var obj = $.parseJSON( data)
-    $('.waterTemp').append("<br>" + obj.data["0"].temp + "º");
-    $body.packery('layout');
-
-  }).fail(function() {
-      console.error("could not get water temp");
-  })
+  // $.get('temp.php',function(data){
+  //   var obj = $.parseJSON( data)
+  //   $('.waterTemp').append("<br>" + obj.data["0"].temp + "º");
+  //   $body.packery('layout');
+  //
+  // }).fail(function() {
+  //     console.error("could not get water temp");
+  // })
 
   // +~+~+~+~+~+~+~+~+~+~+~+~+ ROAM4 Table ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
 
@@ -333,19 +333,19 @@ $.get('disw3.php', function(data) {
 // +~+~+~+~+~+~+~+~+~+~+~+~+ ICE ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
 // https://www.natice.noaa.gov/pub/special/great_lakes/2018/charts/composite_west/wl181227color.gif
 
-d = new Date();
-localDate = new Date(d.toLocaleString())
-
-let month = ("0" + (localDate.getMonth() + 1)).slice(-2)
-// localDate.getMonth()+1
-let day = localDate.getDate()-1
-let year = localDate.getFullYear().toString()
-let year_short = year.substr(-2)
-
-
-$('.ice img').attr('src', 'https://www.natice.noaa.gov/pub/special/great_lakes/' + year + '/charts/composite_west/wl'+ year_short + month + day + 'color.gif')
-$('.ice a').attr('href', 'https://www.natice.noaa.gov/pub/special/great_lakes/'+ year + '/charts/composite_west/wl'+ year_short + month + day + 'color.gif')
-
+// d = new Date();
+// localDate = new Date(d.toLocaleString())
+//
+// let month = ("0" + (localDate.getMonth() + 1)).slice(-2)
+// // localDate.getMonth()+1
+// let day = localDate.getDate()-1d
+// let year = localDate.getFullYear().toString()
+// let year_short = year.substr(-2)
+//
+//
+// $('.ice img').attr('src', 'https://www.natice.noaa.gov/pub/special/great_lakes/' + year + '/charts/composite_west/wl'+ year_short + month + day + 'color.gif')
+// $('.ice a').attr('href', 'https://www.natice.noaa.gov/pub/special/great_lakes/'+ year + '/charts/composite_west/wl'+ year_short + month + day + 'color.gif')
+//
 
 // +~+~+~+~+~+~+~+~+~+~+~+~+ UTILITIES ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
 function DegreesToCardinal(degrees){
