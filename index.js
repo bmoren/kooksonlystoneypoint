@@ -45,8 +45,8 @@ $(function() {
 
   $.get(nearshore_url, function(data) {
       re = /Two\ Harbors\ to[\s\S]*?\$\$/g; //regular expression to get duluth/two harbors only. ///THIS IS GETTING CUT OFF ON THE TOP, CHECK IT OUT!
+      if(data.match(re) == null){ $('.nearshore').append("None issued recently."); return; }; // I think this is right? Skip if no nearshore forecast found.
       choppedForecast = data.match(re)[0]
-          // console.log(choppedForecast)
       finalForecast = choppedForecast.replace(/(\n\.)/g, "</p><p>")
           // console.log(finalForecast)
       $('.nearshore').append(finalForecast)
