@@ -12,32 +12,34 @@ $(function() {
       $body.packery('layout');
   })
 
-  //~+~+~+~+~+~+~+~+~+~+~+~+LSMMA STATIC / LIVE TOGGLE +~+~+~~+~+~+~+~+~+~+~+~+~+//
-  var lsmma = true;
-  $('.lsmmaToggle').click(function() {
-      if (lsmma == true) {
-          $('.lsmmaCam').html('<img src="http://duluthharborcam.us/cameras/canalcam/lsmvc800.jpg">')
-          $('.lsmmaToggle').html('Live Cam')
-          lsmma = false
-      } else if (lsmma == false) {
-          $('.lsmmaCam').html('<iframe src="https://v.angelcam.com/iframe?v=vbolkpk8y8&amp;mute=1&amp;autoplay=1&amp;uuid=865e6d33-f2db-6d70-fccb-1ace015ef654" id="865e6d33-f2db-6d70-fccb-1ace015ef654" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>')
-          $('.lsmmaToggle').html('Static Cam')
-          lsmma = true
-      }
 
-  })
+  //OUTDATED!
+//   //~+~+~+~+~+~+~+~+~+~+~+~+LSMMA STATIC / LIVE TOGGLE +~+~+~~+~+~+~+~+~+~+~+~+~+//
+//   var lsmma = true;
+//   $('.lsmmaToggle').click(function() {
+//       if (lsmma == true) {
+//           $('.lsmmaCam').html('<img src="http://duluthharborcam.us/cameras/canalcam/lsmvc800.jpg">')
+//           $('.lsmmaToggle').html('Live Cam')
+//           lsmma = false
+//       } else if (lsmma == false) {
+//           $('.lsmmaCam').html('<iframe src="https://v.angelcam.com/iframe?v=vbolkpk8y8&amp;mute=1&amp;autoplay=1&amp;uuid=865e6d33-f2db-6d70-fccb-1ace015ef654" id="865e6d33-f2db-6d70-fccb-1ace015ef654" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>')
+//           $('.lsmmaToggle').html('Static Cam')
+//           lsmma = true
+//       }
 
-  // +~+~+~+~+~+~+~+~+~+~+~+~+ SOLGIMT WEBCAM REFRESH ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
-  var refreshRate = 20
-  setInterval(function() {
-      refreshRate--
-      if (refreshRate <= 0) {
-          d = new Date();
-          $('.solgimt').attr('src', 'http://solglimt.com/webcam/netcam.jpg?' + d.getTime())
-          refreshRate = 20
-      }
-      $('.count').text(refreshRate)
-  }, 1000)
+//   })
+
+//   // +~+~+~+~+~+~+~+~+~+~+~+~+ SOLGIMT WEBCAM REFRESH ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
+//   var refreshRate = 20
+//   setInterval(function() {
+//       refreshRate--
+//       if (refreshRate <= 0) {
+//           d = new Date();
+//           $('.solgimt').attr('src', 'http://solglimt.com/webcam/netcam.jpg?' + d.getTime())
+//           refreshRate = 20
+//       }
+//       $('.count').text(refreshRate)
+//   }, 1000)
 
 
   // +~+~+~+~+~+~+~+~+~+~+~+~+ Nearshore PARSE ~+~+~+~+~+~+~+~~++~+~+~+~+~ //
@@ -96,13 +98,13 @@ $(function() {
   $('.windmap select').change(function(d) {
       var newmap = $('.windmap select').val()
           // console.log(newmap)
-      $('.windmap img').attr('src', 'https://www.glerl.noaa.gov//res/glcfs/fcast/swn+' + newmap + '.gif')
+      $('.windmap img').attr('src', 'https://www.glerl.noaa.gov//res/glcfs/lakes/cur/swn+' + newmap + '.gif')
   })
 
   $('.wavemap select').change(function(d) {
       var newmap = $('.wavemap select').val()
           // console.log(newmap)
-      $('.wavemap img').attr('src', 'https://www.glerl.noaa.gov//res/glcfs/fcast/swv+' + newmap + '.gif')
+      $('.wavemap img').attr('src', 'https://www.glerl.noaa.gov//res/glcfs/lakes/cur/swv+' + newmap + '.gif')
   })
 
   $('.surface select').change(function(d) {
